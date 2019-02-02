@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+
+    <!-- inicio favicon  iphone retina, ipad, iphone en orden-->
+    <!-- 	<link rel="icon" type="image/png" href="../static/img/favicon/256x256.png"/>
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../static/img/favicon/114x114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../static/img/favicon/72x72.png">
+        <link rel="apple-touch-icon-precomposed" href="../static/img/favicon/57x57.png"> -->
+    <!-- end favicon -->
+
+    
+    
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css?v=1i1bqKymJ"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/blocks_styl.css?v=2i1bqKymJ"/>
+
+    <!--[if lt IE 9]>
+        <script src="../static/js/html5.js"></script>
+        <script src="../static/js/respond.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="../static/css/ie.css"/>
+    <![endif]-->
+</head>
+
+<body class="">
+
+    <!-- html solo para el menu responsive -->
+    <div  class="menu-mobile-open icon-menu"></div>
+    <div class="menu-mobile-close icon-close"></div>
+    <div class="menu-overlay"></div>
+    <!-- html solo para el menu responsive -->
+
+    <div class="cnt-wrapper">
+        <!-- HEADER START -->
+        <header class="header headers-height">
+	<div class="header-ctn wancho">
+		<nav class="menu">
+			<div class="menu-wrap">
+				<ul class="menu-list"> <!-- "menu-list" es usado para el menu responsive -->
+					<li class="menu-item"><a href="" class="menu-link active">NOSOTROS</a></li>
+					<li class="menu-item"><a href="" class="menu-link">PRODUCTOS</a></li>
+					<li class="menu-item"><a href="" class="menu-link">SERVICIOS</a></li>
+					<li class="menu-item"><a href="" class="menu-link">CLIENTES</a></li>
+					<li class="menu-item"><a href="" class="menu-link">BLOG</a></li>
+					<li class="menu-item"><a href="" class="menu-link">CONTACTO</a></li>
+				</ul>
+				<a href="" class="icon-search"></a>
+			</div>
+		</nav>
+	</div>
+</header>
+
+
+        <!-- HEADER END -->
+        <div class="wrapper">
+
+            <!-- CONTENT START -->
+            
+            <!-- CONTENT END -->
+        </div>
+        <!-- FOOTER START -->
+        <footer class="footer">
+    <!-- creditos -->
+    <section class="footer-copy">
+        <div class="wancho">
+            <div class="footer-copy-left">
+                <p>Copyright <span id="id_year"></span> - Empresa. Todos los derechos reservados. </p>
+            </div>
+            <div class="footer-copy-right">
+                <a class="link-staff" target="_blank" href="http://www.staffcreativa.pe/">Diseño y desarrollo <strong class="staffteam">staffcreativa</strong></a>
+            </div>
+        </div>
+    </section>
+</footer>
+
+        <!-- FOOTER END -->
+    </div>
+
+
+    <!-- contenedor del menu responsive -->
+    <div class="menu-sidebar" data-menu="left-in">
+        <div class="menu-sidebar-cnt"></div>
+    </div>
+
+    <script src="../static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../static/js/main.js" type="text/javascript"></script>
+
+    <!-- JSADD START -->
+    
+    <!-- JSADD END -->
+
+    <script type="text/javascript">
+        $(function(){
+            
+            var menu_data = $('.menu-sidebar').attr('data-menu');
+            if (menu_data == 'left-in') {
+                $('body').removeClass('right-in');
+                $('body').removeClass('top-in');
+                $('body').addClass('left-in');
+            }
+            if (menu_data == 'right-in') {
+                $('body').removeClass('left-in');
+                $('body').removeClass('left-in');
+                $('body').addClass('right-in');
+            }
+            if (menu_data == 'top-in') {
+                $('body').removeClass('left-in');
+                $('body').removeClass('right-in');
+                $('body').addClass('top-in');
+                
+            }
+           
+        })
+        function height_header(){
+            var height_header = $('.header').height(),
+                sidebar_cout = $('.menu-sidebar').attr('data-header', 'sidebar-bottom').length;
+            // console.log(sidebar_cout)
+            
+            // CUANDO EL MENU SIDEBAR ESTA DEBAJO DEL HEADER
+                $('.cnt-wrapper').css('padding-top', height_header); 
+                if ($('body').hasClass('left-in') || $('body').hasClass('right-in')) {
+                    $('.menu-overlay').css('top', height_header); 
+                    $('.menu-sidebar').css({
+                        top: height_header,
+                        height: 'calc(100% - '+height_header+'px)'
+                    });
+                }
+                if ($('body').hasClass('top-in')) {
+                    $('.menu-sidebar').css({
+                        top: height_header,
+                        height: 'calc(100% - '+height_header+'px)'
+                    });
+                }
+            // CUANDO EL MENU SIDEBAR ESTA DEBAJO DEL HEADER
+        }
+        height_header();
+        $(window).on('load', function() {height_header();});
+        $(window).on('resize', function() {height_header();});
+    </script>
+</body>
+</html>

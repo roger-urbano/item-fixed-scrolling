@@ -1,0 +1,35 @@
+div[class*="fixed-wrapper"]
+	display flex
+	flex-direction row
+	flex-wrap wrap
+	justify-content space-between
+	padding-top 80px
+	
+	
+	&.fixed-reverse
+		flex-direction row-reverse
+	
+	.fixed-content
+		box-sizing border-box
+		background-color #DAF0FC
+		flex 1
+
+	.fixed-lateral
+		width 360px
+		height auto
+		// background-color #dddddd
+		position relative
+		
+	.fixed-item
+		border 1px solid silver
+		text-align center
+		
+		&.fixed
+			position fixed
+		
+		&.absolute-bottom
+			position absolute
+			top inherit
+			bottom 0
+			background-color blue
+		

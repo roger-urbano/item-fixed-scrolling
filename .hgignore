@@ -1,0 +1,22 @@
+# use glob syntax.
+syntax: glob
+source/app/
+source/build/base.html
+source/build/base2.html
+source/build/footer.html
+source/build/header.html
+source/static/css/styles.css
+source/static/css/builds/
+source/static/css/blocks_styl.css
+prepros.cfg
+*.pyc
+*~
+*.cfg
+*.orig
+*.zip
+*.orig
+*.bak
+*.bk
+.DS_Store*
+*.TMP
+node_modules

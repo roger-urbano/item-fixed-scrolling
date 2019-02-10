@@ -1,120 +1,131 @@
-// app = {
-// 	demo(wrapper, content, lateral, item){
 
-// 		var $wrapper = $(wrapper);
-// 		var $content = $(content);
-// 		var $lateral = $(lateral);
-// 		var $item = $(item);
-// 		$(window).on('scroll', function(event) {
-// 			var $window = $(window)
-// 			var altoWindow = $window.height()
-// 			var scTop = $(window).scrollTop()
-// 			var scBottom = scrollTop + altoWindow
-// 			var altoWrapper = $wrapper.outerHeight()
-// 			var altoItem = $item.outerHeight()
-// 			var topItem = $item.offset().top
-// 			// if(scTop > ){
-
-// 			// }
-// 		});
-// 	}
-// }
-$(function(){
-	// app.demo('.fixed-wrapper', '.fixed-content', '.fixed-lateral', '.fixed-item', 'distance-top')
-	fixedLateral('.fixed-wrapper', '.fixed-content', '.fixed-lateral', '.fixed-item', '.headers-height');
+$(window).on('load', function(){
+	fixedLateral('.fixed-wrapper', '.fixed-content', '.fixed-item', '.fixed-height');
 })
 
-
 //////////////////////////////
-function fixedLateral(wrapper, content, lateral, item, headerheight){
+function fixedLateral(wrapper, content, item, fixedHeight){
 	var $wrapper = $(wrapper);
 	var $content = $(content);
-	var $lateral = $(lateral);
 	var $item = $(item);
-	var $headersHeight = $(headerheight);
-
-	var topItem = $item.offset().top      
+	var $fixedHeight = $(fixedHeight);
 	
+
+	// Almacenando en Array todos los offsetTop de cada item.
+	var array_tops = []
+	for(var i = 0 ; i < $item.length; i++){
+		array_tops.push($item.eq(i).offset().top)
+	}
+
+	// Sumar alto total de todos los elementos header fixeados.
+	var totalfixedHeight = 0;
+	if ($fixedHeight.length > 0) {
+		for (var i = 0; i < $fixedHeight.length; i++) {
+			var currentfixedHeight = $fixedHeight.eq(i).outerHeight();;
+			totalfixedHeight = totalfixedHeight + currentfixedHeight;
+		}
+	} else {
+		totalfixedHeight = $fixedHeight.outerHeight();
+	}
+
+	console.log("contador de headers " + totalfixedHeight)
+
 	$(window).on('scroll', function() {
-		var altoWindow = $(window).height();
-		var altoHeaders = $headersHeight.height();
-		var scrollingTop = $(window).scrollTop();
-		var scrollingBottom = scrollingTop + altoWindow;
 
-		var altoWrapper = $wrapper.outerHeight();
-		var altoLateral = $lateral.outerHeight();
-		var altoItem = $item.outerHeight();
+		for (var iw = 0; iw < $wrapper.length; iw++) {
+			var altoWrapper = $wrapper.eq(iw).outerHeight();
+			var altoItem = $item.eq(iw).outerHeight();
+			var altoContent = $content.eq(iw).outerHeight();
+			var currentItem = $item.eq(iw);
+			var topItem = array_tops[iw]  // Array contiene offset de cada items.
+			var topWrapper = $wrapper.eq(iw).offset().top
+			var scrollingTop = $(window).scrollTop();
+			var scrollingBottomWrap = topWrapper + altoWrapper - altoItem
 
-		var altoTotal = altoHeaders + altoWrapper
-		var scrollingBottom = scrollingTop + altoItem + altoHeaders
+			console.log("scrollingTop " + scrollingTop);
+			console.log("scrollingBottomWrap " + scrollingBottomWrap)
 
-		// Si el scrolling es mayor al offsetTop del item menos el alto del header
-		if (scrollingTop > topItem - altoHeaders) {
-				// $item.addClass('fixed')
-				$item.css({
+			// Si el scrolling es mayor al offsetTop del item menos el alto del header.
+			if (scrollingTop > topItem - totalfixedHeight) {
+				currentItem.css({
 					position: 'fixed',
-					top: altoHeaders + 'px',
+					top: totalfixedHeight + 'px',
 				});
 
-				if ((scrollingTop + altoItem + altoHeaders) > altoTotal ) {
-					$item.css({
+
+				// Si el scrolling es mayor al offsetTop del wrapper + alto contenido - alto del item
+				if (scrollingTop > scrollingBottomWrap - 70) {
+					currentItem.css({
 						position: 'absolute',
 						top: 'inherit',
 						bottom: '0'
 					});
 
 				} else {
-					$item.css({
+					currentItem.css({
 						bottom: 'inherit',
 					});
 				}
 
-		} else {
-			// $item.removeClass('fixed')
-			$item.removeAttr('style');
-
+			} else {
+			currentItem.removeAttr('style');
+			}
 		}
-
-		console.log("altoTotal " + altoTotal)
-		console.log("scrollingTop + altoItem " + (scrollingTop + altoItem))
+		// console.log("scrollingTop " + scrollingTop)
+		// console.log("scrollingBottomWrap " + scrollingBottomWrap)
 	})
+
+
+
+
+		
+		
+	
+
+
+
+	/**********************************************************/
+	
+	// $(window).on('scroll', function() {
+	// 	var scrollingTop = $(window).scrollTop();
+
+	// 	var altoWrapper = $wrapper.outerHeight();
+	// 	var altoLateral = $lateral.outerHeight();
+	// 	var altoItem = $item.outerHeight();
+
+	// 	var altoTotal = totalfixedHeight + altoWrapper
+	// 	var scrollingBottom = scrollingTop + altoItem + totalfixedHeight
+
+
+	// 	// Si el scrolling es mayor al offsetTop del item menos el alto del header
+	// 	if (scrollingTop > topItem - totalfixedHeight) {
+	// 			// $item.addClass('fixed')
+	// 			$item.css({
+	// 				position: 'fixed',
+	// 				top: totalfixedHeight + 'px',
+	// 			});
+
+	// 			if (scrollingBottom > altoTotal) {
+	// 				$item.css({
+	// 					position: 'absolute',
+	// 					top: 'inherit',
+	// 					bottom: '0'
+	// 				});
+
+	// 			} else {
+	// 				$item.css({
+	// 					bottom: 'inherit',
+	// 				});
+	// 			}
+
+	// 	} else {
+	// 		// $item.removeClass('fixed')
+	// 		$item.removeAttr('style');
+
+	// 	}
+	// })
 }
 
-//////////////////////////////
-
-	function fixerLateral(){
-		var offsetItem = $('.fixed-item').offset().top;
-		$(window).scroll(function() {
-			var altoHeader = $('.header').outerHeight(),
-				altoWrapper = $('.fixed-wrapper').outerHeight(),
-				paddingWrapper = parseInt($('.fixed-wrapper').css('padding-top')),
-				altoTotal = altoWrapper + altoHeader;
-
-				altoLateral = $('.fixed-lateral').outerHeight(),
-				altoItem = $('.fixed-item').outerHeight(),
-				altoScrolling = $(window).scrollTop(),
-				fixedBottom = altoScrolling + altoItem + altoHeader;
-
-				if (altoScrolling > offsetItem - altoHeader) {
-					$('.fixed-item').addClass('fixed');
-					$('.fixed-item').css({
-						top: altoHeader + 'px',
-					});
-
-					if (fixedBottom > altoTotal) {
-						$('.fixed-item').addClass('absolute-bottom');
-					} else if (fixedBottom < altoTotal){
-						$('.fixed-item').removeClass('fixed-bottom');
-					}
-
-				} else {
-					$('.fixed-item').removeAttr('style');
-				}
-
-		})
-	}
-
-	// fixerLateral()
 
 
 

@@ -6,10 +6,22 @@ div[class*="fixed-wrapper"]
 	padding-top 80px
 	margi-top 30px
 	
+	.fixed-item
+		border 1px solid silver
+		text-align center
 	
-	&.fixed-reverse
+	
+	&.fixed-left
 		flex-direction row-reverse
-	
+		.fixed-lateral
+			justify-content flex-start
+
+		
+	&.fixed-right
+		.fixed-lateral
+			justify-content flex-end
+
+		
 	.fixed-content
 		box-sizing border-box
 		background-color #DAF0FC
@@ -18,19 +30,7 @@ div[class*="fixed-wrapper"]
 	.fixed-lateral
 		width 360px
 		height auto
-		// background-color #dddddd
+		background-color #dddddd
 		position relative
-		
-	.fixed-item
-		border 1px solid silver
-		text-align center
-		
-		&.fixed
-			position fixed
-		
-		&.absolute-bottom
-			position absolute
-			top inherit
-			bottom 0
-			background-color blue
-		
+		display flex
+		align-items flex-start

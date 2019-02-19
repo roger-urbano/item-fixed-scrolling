@@ -32,13 +32,13 @@ function fixedLateral(wrapper, content, item, fixedHeight){
 
 	$(window).on('scroll', function() {
 
-		for (var iw = 0; iw < $wrapper.length; iw++) {
-			var altoWrapper = $wrapper.eq(iw).outerHeight();
-			var altoItem = $item.eq(iw).outerHeight();
-			var altoContent = $content.eq(iw).outerHeight();
-			var currentItem = $item.eq(iw);
-			var topItem = array_tops[iw]  // Array contiene offset de cada items.
-			var topWrapper = $wrapper.eq(iw).offset().top
+		for (var i = 0; i < $wrapper.length; i++) {
+			var altoWrapper = $wrapper.eq(i).outerHeight();
+			var altoItem = $item.eq(i).outerHeight();
+			var altoContent = $content.eq(i).outerHeight();
+			var currentItem = $item.eq(i);
+			var topItem = array_tops[i]  // Array contiene offset de cada items.
+			var topWrapper = $wrapper.eq(i).offset().top
 			var scrollingTop = $(window).scrollTop();
 			var scrollingBottomWrap = topWrapper + altoWrapper - altoItem
 
